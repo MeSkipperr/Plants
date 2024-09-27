@@ -6,6 +6,7 @@ import { MdSunny } from "react-icons/md";
 import { GiWateringCan } from "react-icons/gi";
 import { PiPlantFill } from "react-icons/pi";
 import SlideCard from "@/components/slideCard";
+import Card from "@/components/card";
 
 export default function Home() {
   return (
@@ -74,10 +75,14 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="w-full h-[80dvh]  flex-col  flex items-center bg-primary relative border-red-500 border">
+          <div className="w-full h-[80dvh]  flex-col  flex items-center bg-primary relative ">
             <SlideCard/>
           </div>
-          <div className="w-full h-dvh  flex-col  flex items-center bg-primary ">
+          <div className="w-full h-auto  flex-col  flex justify-center items-center bg-primary ">
+            <div className="w-3/4  h-auto flex-col  flex justify-center items-center relative gap-2">
+                <p className="text-second px-2 text-xl font-semibold lg:text-4xl">Plant Categories</p>
+                <Card/>
+            </div>
           </div>
         </div>
       </div>
@@ -85,24 +90,3 @@ export default function Home() {
   );
 }
 
-
-// <div className="w-full h-dvh flex-col lg:flex-row flex items-center justify-center bg-primary px-2 ">
-// <div className="w-full h-1/4 lg:w-1/4 lg:h-2/4 rounded-md mt-10 flex justify-center items-end relative border">
-//   <div className="absolute inset-10 mt-20 bg-second"></div>
-  // <Image 
-  //   src="/assets/monsteradeliciosa.png"
-  //   alt="lidah buaya"
-  //   width={1920}
-  //   height={1080}
-  //   className="w-[150%] h-full z-10 border object-contain"
-  //   />
-// </div>
-// <div className="w-full h-auto lg:h-full lg:w-1/2 border-2 flex flex-grow lg:flex-grow-0"></div>
-// <Image 
-//   src="/assets/monsteradeliciosa.png"
-//   alt="lidah buaya"
-//   width={1920}
-//   height={1080}
-//   className="w-full lg:w-2/4"
-//   />
-// </div>

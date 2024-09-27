@@ -12,7 +12,7 @@ const config: Config = {
         primary: '#FFFAFA',
         second:"#264432",
         third:"#FFB22C",
-        
+        lightGreen:"#EDF8EE",
       }
     },
   },
