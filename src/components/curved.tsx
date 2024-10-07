@@ -44,7 +44,7 @@ const Curved = ({className,background="#fff",height=300} : Curved) => {
     };
 
     return (
-        <div className={`w-full h-[100vh] flex items-end ${className}`}>
+        <div className={`w-full h-[10   0vh] flex items-end ${className}`}>
             <svg width="100%" height={heightSvg} id="curvedSVG">
                 <path
                     d={getSvgPath()}
