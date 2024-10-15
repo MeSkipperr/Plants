@@ -13,7 +13,10 @@ const config: Config = {
         second:"#264432",
         third:"#FFB22C",
         lightGreen:"#EDF8EE",
-      }
+      },
+      fontFamily: {
+        kaftan: ['Kaftan', 'sans-serif'], 
+      },
     },
   },
   plugins: [],

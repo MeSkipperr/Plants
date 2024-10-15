@@ -40,7 +40,7 @@ const Navbar = ({transparent=true}:NavbarType) => {
                 href="/"
                 className="flex justify-center  gap-2"   
                 >
-                <h1 className={`text-xl  place-self-center ${scrolled ? 'text-black' : 'text-white'}`}>PLANTS</h1>
+                <h1 className={`text-xl  place-self-center  font-kaftan tracking-widest ${scrolled ? 'text-black' : 'text-white'}`}>PLANTS</h1>
                 </Link>
                 <div className="flex justify-center gap-4 items-center">
                     <Link href="/" className={`text-hover hidden lg:block ease-in ${scrolled ? 'text-black' : 'text-white'}`}>Home</Link>

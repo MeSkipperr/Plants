@@ -113,13 +113,13 @@ const SlideCard = () => {
         <div className="h-full w-full broder  lg:w-3/4 flex flex-col justify-center items-center   relative ">
 
                 <div className="absolute  top-0 place-self-center bottom-0  left-0 w-1/4 h-3/4 lg:h-full  bg-gradient-to-r from-primary to-transparent flex justify-start items-center z-10">
-                    <button className="p-5 mr-10" onClick={goToPreviousCard}>
-                        <IoIosArrowBack/>
+                    <button className="p-5 mr-10 " onClick={goToPreviousCard}>
+                        <IoIosArrowBack className="text-xl text-black"/>
                     </button>
                 </div>
                 <div className="absolute  top-0 place-self-center bottom-0  right-0 w-1/4 h-3/4 lg:h-full  bg-gradient-to-l from-primary to-transparent flex justify-end items-center z-10">
-                    <button className="p-5 ml-10" onClick={goToNextCard}>
-                        <IoIosArrowForward/>
+                    <button className="p-5 ml-10 " onClick={goToNextCard}>
+                        <IoIosArrowForward className="text-xl text-black"/>
                     </button>
                 </div>
             <div className={`w-full h-full flex gap-10 justify-start  items-center overflow-x-hidden whitespace-nowrap scroll-smooth  `} ref={divOverflow}>

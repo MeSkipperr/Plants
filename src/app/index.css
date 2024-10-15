@@ -28,5 +28,6 @@ h1{
 
 .scroll-padding-x-4 {
     scroll-padding-left: 1rem;
+    /* fontsi */
     scroll-padding-right: 1rem;
-  }
+}

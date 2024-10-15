@@ -1,0 +1,54 @@
+.input-field {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+}
+
+.input-field input {
+    width: 100%;
+    font-size: 18px;
+    padding: 0 15px;
+    background: transparent;
+    outline: none;
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+    appearance: textfield;
+}
+
+.input-field input[type="number"]::-webkit-outer-spin-button,
+.input-field input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-field span{
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-left: none;
+}
+
+.input-field label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 19px;
+    pointer-events: none;
+    transition: 0.3s;
+    background-color: inherit;
+}
+
+
+
+.input-field input::placeholder{
+    color:transparent;
+}
+
+.input-field input:focus ~ label,
+.input-field input:not(:placeholder-shown) ~ label,
+.input-field input.has-value ~ label {
+    top: 0;
+    left: 15px;
+    font-size: 16px;
+    padding: 0 2px;
+}

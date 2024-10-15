@@ -12,7 +12,7 @@ import StarRating from "@/components/card/starRate";
 import Footer from "@/components/footer";
 
 
-const User = () => {
+const Home = () => {
     return (
         <main>
             <Navbar />
@@ -114,8 +114,8 @@ const User = () => {
                         </div>
                     </div>
                 </div>
-                <div className="w-full h-dvh"></div>
-                <div className="w-full flex justify-center items-center text-white h-dvh bg-second fixed top-0">
+                <div className="w-full h-[50dvh]"></div>
+                <div className="w-full flex justify-center items-center text-white bg-second fixed bottom-0">
                     <Footer/>
                 </div>
             </div>
@@ -123,4 +123,4 @@ const User = () => {
     );
 }
 
-export default User;
+export default Home;

@@ -10,3 +10,10 @@
     -webkit-text-stroke: 4px #fff;
     }
 }
+
+@font-face {
+    font-family: "Kaftan";
+    src: url("/fonts/kaftan-trial.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
