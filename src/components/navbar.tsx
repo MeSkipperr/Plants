@@ -44,8 +44,7 @@ const Navbar = ({transparent=true}:NavbarType) => {
                 </Link>
                 <div className="flex justify-center gap-4 items-center">
                     <Link href="/" className={`text-hover hidden lg:block ease-in ${scrolled ? 'text-black' : 'text-white'}`}>Home</Link>
-                    <Link href="/" className={`text-hover hidden lg:block ease-in ${scrolled ? 'text-black' : 'text-white'}`}>About</Link>
-                    <Link href="/" className={`text-hover hidden lg:block ease-in ${scrolled ? 'text-black' : 'text-white'}`}>Product</Link>
+                    <Link href="/plants" className={`text-hover hidden lg:block ease-in ${scrolled ? 'text-black' : 'text-white'}`}>Plants</Link>
                     <Link href="/" className={`text-hover hidden lg:block ease-in ${scrolled ? 'text-black' : 'text-white'}`}>Cart</Link>
                     <Link href="/" className={`text-hover hidden lg:block ease-in ${scrolled ? 'text-black' : 'text-white'}`}>Login</Link>
                     <button className="bg-third text-white  text-sm lg:text-base rounded-md px-4 py-2 flex items-center gap-2">Book Now<FaArrowRight /></button>
