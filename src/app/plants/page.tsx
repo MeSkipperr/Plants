@@ -4,6 +4,7 @@ import { FaRegHeart ,FaHeart } from "react-icons/fa";
 import { useSearchParams,useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { setCookie } from "@/libs/cookies";
 
 const content = [
     {
@@ -27,7 +28,7 @@ const content = [
         title: "Monstera Deliciosa",
         price: "$10",
         star: 4.5,
-        category: ["indoor", "flowering"],
+        category: ["indoor"],
         about:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     },
     {
@@ -43,7 +44,7 @@ const content = [
         title: "Cactus",
         price: "$10",
         star: 4,
-        category: ["indoor", "outdoor", "cacti"],
+        category: ["indoor", "outdoor", "cacti", "flowering"],
         about:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     },
     {
@@ -72,6 +73,11 @@ const PlantsProduct = () => {
     const [category, setCategory] = useState<string | null>(null);
 
     const listCategory = ["indoor","outdoor","flowering","cacti"]
+
+    //testing Cookie
+    const pakaiCookiee = () =>{
+        setCookie('user', { name: 'John Doe', age: 30 }, 7); 
+    }
 
     useEffect(() => {
         const categoryParam = searchParams.get('category');
@@ -110,7 +116,7 @@ const PlantsProduct = () => {
                     </Link>
                     {listCategory.map((category, index) =>(
                         <Link href={`/plants?category=${category}`} key={index}>
-                            <button  className="py-1 px-4 bg-lightGreen rounded-sm shadow-sm">{category}</button>
+                            <button  className="py-1 px-4 bg-lightGreen rounded-sm shadow-sm capitalize">{category}</button>
                         </Link>
                     ))}
                 </div>
@@ -137,7 +143,9 @@ const PlantsProduct = () => {
                                 )}
                             </p>
                             <p className="truncate text-sm">{card.about}</p>
-                            <button className="text-second py-2 rounded-md text-sm lg:text-lg w-full flex items-center justify-between self-start font-bold">
+                            <button 
+                                className="text-second py-2 rounded-md text-sm lg:text-lg w-full flex items-center justify-between self-start font-bold"
+                                onClick={pakaiCookiee}>
                                 {card.price}
                                 <p>Add to cart</p>
                             </button>
