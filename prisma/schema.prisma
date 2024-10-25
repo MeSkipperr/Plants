@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model cart {
+  cart_id    Int       @id @default(autoincrement())
+  user_id    Int
+  product_id Int
+  add_at     DateTime? @default(now()) @db.DateTime(0)
+  user       users     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "cart_ibfk_1")
+  product    product   @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction, map: "cart_ibfk_2")
+
+  @@index([product_id], map: "product_id")
+  @@index([user_id], map: "user_id")
+}
+
+model like {
+  like_id    Int     @id @default(autoincrement())
+  user_id    Int
+  product_id Int
+  user       users   @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "like_ibfk_1")
+  product    product @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction, map: "like_ibfk_2")
+
+  @@index([product_id], map: "product_id")
+  @@index([user_id], map: "user_id")
+}
+
+model order {
+  order_id       Int                  @id @default(autoincrement())
+  user_id        Int
+  product_id     Int
+  product_status order_product_status
+  address        String               @db.Text
+  purchase_date  DateTime?            @default(now()) @db.DateTime(0)
+  total_price    Int
+  phone          String?              @db.VarChar(20)
+  user           users                @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "order_ibfk_1")
+  product        product              @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction, map: "order_ibfk_2")
+
+  @@index([product_id], map: "product_id")
+  @@index([user_id], map: "user_id")
+}
+
+model product {
+  product_id       Int                      @id @default(autoincrement())
+  product_name     String                   @db.VarChar(255)
+  product_about    String?                  @db.Text
+  product_img      String?                  @db.VarChar(255)
+  product_price    Int
+  product_category product_product_category
+  like_count       Int?                     @default(0)
+  like_user        Json?
+  cart             cart[]
+  like             like[]
+  order            order[]
+}
+
+model users {
+  user_id    Int       @id @default(autoincrement())
+  user_name  String    @db.VarChar(255)
+  user_email String    @unique(map: "user_email") @db.VarChar(255)
+  pass_hash  String    @db.VarChar(255)
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  role       String    @db.VarChar(50)
+  cart       cart[]
+  like       like[]
+  order      order[]
+}
+
+enum order_product_status {
+  processing
+  shipped
+  delivered
+  cancelled
+  returned
+}
+
+enum product_product_category {
+  indoor
+  outdoor
+  flowering
+  cacti
+}
