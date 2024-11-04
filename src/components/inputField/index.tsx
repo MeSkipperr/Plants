@@ -13,8 +13,8 @@ type InputFieldProps = {
     height?:number;
     color?:string;
     bgColor?:string;
-    value: string;
-    onChange: (value: string) => void;
+    value: string | number |undefined;
+    onChange: (value: string | number) => void;
     errorMsg?:boolean;
     setErrorMsg?:string;
     onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
