@@ -6,6 +6,7 @@ import InputField from "@/components/inputField";
 import {  useState } from "react";
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
+import { decodeTokenClient } from '@/libs/utils/jwt';
 
 const ResetPassword = () => {
     const searchParams = useSearchParams();
@@ -19,29 +20,41 @@ const ResetPassword = () => {
 
 
     const token = searchParams.get('token');
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
-
+        if(!token || token.trim() === "") return
         if (userPass.length < 8 || !/\d/.test(userPass)) return
         
         if(userPass !==  userConfirmPass) return setErrorPassword('Password not match');
+
+        console.log(token)
+        try {
+            const decode = await decodeTokenClient(token);
+            console.log(decode)
+
+            
+            
+        } catch (error) {
+            console.log(error)
+        }
         setErrorPassword('')
 
-        try {
-            setLoadingSignup(true);
-            const user = await signIn('credentials', {
-                username: userName,
-                password: userPass,
-                email:userEmail,
-                callbackUrl: callbackUrl || "/"
-            });
-            console.log(user)
-        } catch (error) {
-            console.error('Error submitting form:', error);
-        }finally {
-            setLoadingSignup(false);
-        }
+        // try {
+        //     setLoadingSignup(true);
+        //     // const user = await signIn('credentials', {
+        //     //     username: userName,
+        //     //     password: userPass,
+        //     //     email:userEmail,
+        //     //     callbackUrl: callbackUrl || "/"
+        //     // });
+        //     console.log(user)
+        // } catch (error) {
+        //     console.error('Error submitting form:', error);
+        // }finally {
+        //     setLoadingSignup(false);
+        // }
     };
 
     

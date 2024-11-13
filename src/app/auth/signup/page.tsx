@@ -10,7 +10,7 @@ import { useSearchParams  } from 'next/navigation';
 import axios, { AxiosError } from 'axios';
 
 import { FaArrowLeft } from "react-icons/fa6";
-import { decodeTokenClient } from "@/utils/jwt";
+import { decodeTokenClient } from "@/libs/utils/jwt";
 
 const SignUp = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

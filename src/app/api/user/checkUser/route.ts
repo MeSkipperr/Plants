@@ -1,15 +1,7 @@
 import { NextResponse } from "next/server";
-import { headers } from "next/headers";
 import { PrismaClient } from "@prisma/client";
 
 export async function GET(request:Request) {   
-    const apiKeyEnv = process.env.NEXT_PUBLIC_API_KEY;
-
-    const headersList = headers();
-    const apiKeyHeader = headersList.get("Authorization");
-
-    if(apiKeyEnv !== apiKeyHeader) return NextResponse.json({ message: 'Unauthorized' }, { status: 404 });
-
     const url = new URL(request.url);
     const userEmail = url.searchParams.get('userEmail');
 
@@ -18,7 +10,7 @@ export async function GET(request:Request) {
         
     const prisma = new PrismaClient();
 
-    try {
+    try {   
         const user = await prisma.users.findUnique({
             where: {
                 user_email:userEmail,

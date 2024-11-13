@@ -23,17 +23,20 @@ const SignUp = () => {
     
     const [checkEmail, setCheckEmail] = useState(false);
 
+    const [sendAgainLoading, setSendAgainLoading] = useState<boolean>(false);
+
     const [nextFormPage, setNextFormPage] = useState(false);
 
     const nextHandle = async ()=>{
         if (emailRegex.test(userEmail)) {
             setCheckEmail(true)
+            setSendAgainLoading(true)
             try {
                 const response = await axios.get('/api/auth/verify-token', {
                     headers: {
                         Authorization: process.env.NEXT_PUBLIC_API_KEY,
                     },
-                        params: {
+                    params: {
                         userEmail: userEmail,
                     },
                 });
@@ -47,6 +50,7 @@ const SignUp = () => {
                 return error;
             }finally{
                 setCheckEmail(false);
+                setSendAgainLoading(false)
             }
         };
     };
@@ -74,10 +78,16 @@ const SignUp = () => {
             console.log("Verification Response:", response);
             if (response.status === 200) {
                 console.log("Redirecting to reset-password");
-                await router.push(`/auth/reset-password?token=${encodeToken}`);
+                await router.push(`/auth/reset-password?token=${encodeToken}&inputToken=${verifyCode}`);
             }
-        } catch (error) {
-            setTokenError("Your verify code is invalid");
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response && error.response.data) {
+                // If error is an AxiosError and contains response data, use its message
+                setTokenError(error.response.data.message || "An error occurred");
+            } else {
+                // Handle any other type of error or unexpected issues
+                setTokenError("An unexpected error occurred");
+            }
             console.error("Verification error:", error);
         } finally {
             setVerifyTokenLoading(false);
@@ -86,7 +96,7 @@ const SignUp = () => {
 
     return ( 
         <div className="w-full h-dvh flex justify-center items-center bg-[url('/background/leafplants.jpg')] bg-cover">
-            <div className="px-8  py-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white  rounded-md">
+            <div className="px-8  py-6 shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white  rounded-md ">
                     {/* <span className="w-full flex justify-end">
                         <FaTimes className="m-2 text-red-500 cursor-pointer" size={20} />
                     </span> */}
@@ -116,7 +126,7 @@ const SignUp = () => {
                             </>
                         :
                         <>
-                        <FaArrowLeft size={20} className="mb-4 cursor-pointer" onClick={()=>setNextFormPage(false)} />
+                            <FaArrowLeft size={20} className="mb-4 cursor-pointer" onClick={()=>setNextFormPage(false)} />
                             <h2 className="text-2xl pt-4 font-semibold">Enter Verification Code</h2>
                             <p className="text-base  ">{`To open this link, enter the code we just`}</p>
                             <p className="text-base pb-8 ">{`emailed to ${userEmail}.`}</p>
@@ -128,7 +138,13 @@ const SignUp = () => {
                                 errorMsg
                                 setErrorMsg={tokenError}
                             />
-                            <p className="flex justify-end"> <span className=" underline tracking-wider ">Send again </span></p>
+                            <p className="flex justify-end"> <span className=" underline tracking-wider cursor-pointer" onClick={nextHandle}>
+                                {
+                                    sendAgainLoading ? 
+                                    "Loading" :
+                                    "Send again"
+                                }
+                            </span></p>
                             <button className="py-4 w-full bg-second rounded text-white" onClick={verifyToken}>
                                 {verifyTokenLoading?"Loading.." : "Verify"}
                             </button>

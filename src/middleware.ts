@@ -1,31 +1,27 @@
-// middleware/authMiddleware.ts
-import { jwtVerify } from 'jose';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { apiAuthMiddleware } from './middleware/apiAuthMiddleware';
+import { jwtAuthMiddleware } from './middleware/jwtAuthMiddleware';
 
 export async function middleware(request: NextRequest) {
-    const JWT_SECRET = new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET as string);
+    console.log("Middleware triggered");
+    const { pathname } = request.nextUrl;
 
-    const { searchParams } = request.nextUrl;
-    const token = searchParams.get('token');
+    console.log("pathname:", pathname);
 
-    if (!token) {
-        return NextResponse.redirect(new URL('/auth/forget-password', request.url));
+    if (pathname.startsWith('/api/')) {
+        console.log("API Auth Middleware Active");
+        return apiAuthMiddleware(request);
     }
 
-    try {
-        const { payload } = await jwtVerify(token, JWT_SECRET);
-        console.log(payload)
-        
-        return NextResponse.next();
-    } catch (error) {
-        console.log("Jwt Verify Error :" ,error)
-        return NextResponse.redirect(new URL('/auth/forget-password', request.url));
+    if (pathname === '/auth/reset-password') {
+        console.log("JWT Auth Middleware Active");
+        return jwtAuthMiddleware(request);
     }
 
+    return NextResponse.next();
 }
 
-// Tentukan path middleware yang berlaku
 export const config = {
-    matcher: '/auth/reset-password',
+    matcher: ['/api/:path*', '/auth/reset-password'],
 };
