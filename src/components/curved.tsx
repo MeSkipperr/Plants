@@ -40,7 +40,6 @@ const Curved = ({className,background="#fff",height=300} : Curved) => {
     const getSvgPath = () => {
         if (typeof window === "undefined") return "";
         const windowWidth = window.innerWidth;
-        console.log(`M 0 ${heightSvg} C ${windowWidth * 0.25} ${radius} ${windowWidth * 0.75} ${radius} ${windowWidth} ${height}`)
         return `M 0 ${heightSvg} C ${windowWidth * 0.25} ${radius} ${windowWidth * 0.75} ${radius} ${windowWidth} ${height}`;
     };
 
